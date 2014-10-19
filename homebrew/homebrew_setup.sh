@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-#
-# Sets up Homebrew, OpenSSL, Ruby and Node.js environments, 'ag' and 'wget' for
-# shell convenience, and a special list of applications from brew-cask.
 
 fancy_echo() {
   printf "\n%b\n" "$1"
@@ -17,8 +14,16 @@ append_to_zshrc() {
     zshrc="$HOME/.zshrc"
   fi
 
-  if [ $SHELL == "/bin/bash" ]; then
-    zshrc="$HOME/.bash_profile"
+  if [[ $SHELL == "*/bash" ]]; then
+    if [[ -w "$HOME/.bashrc"]]; then
+      zshrc="$HOME/.bashrc"
+    else
+      zshrc="$HOME/.bash_profile"
+    fi
+  fi
+
+  if [[ ! -f "$zshrc" ]]; then
+    touch "$zshrc"
   fi
 
   if ! grep -Fqs "$text" "$zshrc"; then
@@ -78,9 +83,8 @@ brew_launchctl_restart() {
 # Ask for the administrator password upfront
 sudo -v
 
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
+# Keep-alive: update existing `sudo` time stamp until finished
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 
 
 if ! command -v brew >/dev/null; then
@@ -98,24 +102,27 @@ fi
 ## End Homebrew
 
 
-
 fancy_echo "Upgrading and linking OpenSSL ..."
   brew_install_or_upgrade 'openssl'
   brew unlink openssl && brew link openssl --force
-## End OpenSSL / Mac replacement binaries
+## End Mac replacement binaries
 
 
 if [[ ! -d "$HOME/.rbenv" ]]; then
   fancy_echo "Installing rbenv, to change Ruby versions ..."
     append_to_zshrc '# rbenv setup'
     append_to_zshrc 'RBENV_ROOT=/usr/local/var/rbenv' 1
-
     export RBENV_ROOT="/usr/local/var/rbenv"
 
     brew_install_or_upgrade 'rbenv'
 
-    append_to_zshrc 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' 1
-    eval "$(rbenv init -)"
+    if [[ $SHELL == "*/bash" ]]; then
+      append_to_zshrc 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' 1
+      eval "$(rbenv init -)"
+    else
+      append_to_zshrc 'if which rbenv > /dev/null; then eval "$(rbenv init - zsh --no-rehash)"; fi' 1
+      eval "$(rbenv init - zsh)"
+    fi
 fi
 
 if [[ ! -d "$HOME/.rbenv/plugins/rbenv-gem-rehash" ]]; then
@@ -142,8 +149,6 @@ fancy_echo "Updating to latest Rubygems version ..."
 ## End Ruby Install
 
 
-
-
 fancy_echo "Installing Node.js"
   brew install node --without-npm
 
@@ -159,7 +164,10 @@ fancy_echo "Setting node to latest stable version via n"
 ## End Node Install
 
 
-fancy_echo "Installing The Silver Searcher, aka 'ag' (better than ack or grep) to search the contents of files ..."
+fancy_echo "Installing Python ..."
+  brew_install_or_upgrade 'python'
+
+fancy_echo "Installing The Silver Searcher (better than ack or grep) to search the contents of files ..."
   brew_install_or_upgrade 'the_silver_searcher'
 
 fancy_echo "Installing wget ..."
@@ -179,21 +187,35 @@ fancy_echo "Installing brew-cask ..."
 apps=(
   alfred
   atom
+  backblaze
+  bartender
   cakebrew
   codekit
   cyberduck
   diskmaker-x
   dropbox
+  filezilla
   firefox
+  flux
   google-chrome
+  ichm
+  imageoptim
   istat-menus
   iterm2
   jing
+  little-snitch
   opera
+  peepopen
+  plug
+  rescuetime
+  sequel-pro
+  shortcat
   skype
   spotify
   tower
   transmission
+  tunnelbear
+  unetbootin
   vlc
   qlcolorcode
   qlstephen
@@ -201,12 +223,6 @@ apps=(
   quicklook-json
   quicklook-csv
   betterzipql
-  forklift
-  less
-  monotype-skyfonts
-  sublime-text
-  tilemill
-  transmit
 )
 
 
@@ -215,9 +231,4 @@ apps=(
 echo "Installing apps..."
 brew cask install --appdir="/Applications" ${apps[@]}
 
-
-# Fix Alfred launching of cask apps
-# May need to start Alfred before this..
-fancy_echo "Open Alfred and run 'brew cask alfred link'"
-
-fancy_echo "Done!"
+fancy_echo "All done. Have fun!"
