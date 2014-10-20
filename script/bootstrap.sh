@@ -5,7 +5,7 @@
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
-source $DOTFILES_ROOT/common.sh
+source $DOTFILES_ROOT/script/common.sh
 
 set -e
 
