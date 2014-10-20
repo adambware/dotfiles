@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
+
+source $DOTFILES_ROOT/script/common.sh
+
 # Ask for the administrator password upfront
 sudo -v
 
@@ -412,8 +417,8 @@ fancy_echo "Starting Chrome Tweaks"
 fancy_echo "Allow installing user scripts via GitHub Gist or Userscripts.org"
 	defaults write com.google.Chrome ExtensionInstallSources -array "https://gist.githubusercontent.com/" "http://userscripts.org/*"
 
-fancy_echo "Disable the all too sensitive backswipe"
-	defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
+#fancy_echo "Disable the all too sensitive backswipe"
+#	defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool false
 
 
 ###############################################################################
@@ -433,14 +438,4 @@ fancy_echo "Hide the legal disclaimer"
 	defaults write org.m0k.transmission WarningLegal -bool false
 
 
-###############################################################################
-# Kill affected applications                                                  #
-###############################################################################
-fancy_echo "Killing affected applications ..."
-
-#for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-#	"Dock" "Finder" "Mail" "Messages" "Safari" "SystemUIServer" \
-#	"Terminal" "Transmission" "iCal"; do
-#	killall "${app}" > /dev/null 2>&1
-#done
 fancy_echo "Done. You should reboot now."
