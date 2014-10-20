@@ -76,6 +76,8 @@ fancy_echo "Installing Node.js"
 fancy_echo "Installing NPM"
   echo 'prefix=~/.node' >> ~/.npmrc
   curl -L https://www.npmjs.org/install.sh | sh
+  append_to_zshrc 'export PATH="$HOME/.node/bin:$PATH"'
+  export PATH="$HOME/.node/bin:$PATH"
 
 fancy_echo "Installing n (simple node version management)"
   npm install -g n
