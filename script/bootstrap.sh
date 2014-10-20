@@ -22,5 +22,5 @@ if [[ $USER=="adamboulware" ]]; then
 
   link_file "$DOTFILES_ROOT/zsh/adambware.zsh-theme" "$HOME/.oh-my-zsh/custom/adambware.zsh-theme"
 else
-  source $DOTFILES_ROOT/homebrew/homebrew_setup_ryan.sh
+  source $DOTFILES_ROOT/homebrew/homebrew_setup.sh
 fi
