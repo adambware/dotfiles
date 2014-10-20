@@ -13,9 +13,9 @@ append_to_zshrc() {
     zshrc="$HOME/.zshrc"
   fi
 
-  if [[ $SHELL == "*/bash" ]]
+  if [ $SHELL == "*/bash" ]
   then
-    if [[ -w "$HOME/.bashrc"]]
+    if [[ -w "$HOME/.bashrc" ]]
     then
       zshrc="$HOME/.bashrc"
     else
