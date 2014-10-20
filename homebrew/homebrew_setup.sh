@@ -110,35 +110,21 @@ fancy_echo "Installing brew-cask ..."
 apps=(
   alfred
   atom
-  backblaze
-  bartender
   cakebrew
   codekit
   cyberduck
   diskmaker-x
   dropbox
-  filezilla
   firefox
-  flux
   google-chrome
-  ichm
-  imageoptim
   istat-menus
   iterm2
   jing
-  little-snitch
   opera
-  peepopen
-  plug
-  rescuetime
-  sequel-pro
-  shortcat
   skype
   spotify
   tower
   transmission
-  tunnelbear
-  unetbootin
   vlc
   qlcolorcode
   qlstephen
@@ -146,6 +132,12 @@ apps=(
   quicklook-json
   quicklook-csv
   betterzipql
+  forklift
+  less
+  monotype-skyfonts
+  sublime-text
+  tilemill
+  transmit
 )
 
 
