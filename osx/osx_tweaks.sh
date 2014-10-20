@@ -1,11 +1,4 @@
-# START thoughtbot/laptop/master/mac
-fancy_echo() {
-	printf "\n%b\n" "$1"
-}
-### end common-components/shared-functions
-
 #!/usr/bin/env bash
-### end common-components/bash-shebang
 
 # Ask for the administrator password upfront
 sudo -v
@@ -18,10 +11,6 @@ trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 set -e
 ### end common-components/exit-trap
 
-
-if [ ! -f "$HOME/.zshrc" ]; then
-	touch "$HOME/.zshrc"
-fi
 
 
 # START ~/.osx — https://mths.be/osx
