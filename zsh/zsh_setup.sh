@@ -14,6 +14,18 @@ append_to_zshrc() {
     zshrc="$HOME/.zshrc"
   fi
 
+  if [[ $SHELL == "*/bash" ]]; then
+    if [[ -w "$HOME/.bashrc"]]; then
+      zshrc="$HOME/.bashrc"
+    else
+      zshrc="$HOME/.bash_profile"
+    fi
+  fi
+
+  if [[ ! -f "$zshrc" ]]; then
+    touch "$zshrc"
+  fi
+
   if ! grep -Fqs "$text" "$zshrc"; then
     if (( skip_new_line )); then
       printf "%s\n" "$text" >> "$zshrc"
@@ -22,6 +34,7 @@ append_to_zshrc() {
     fi
   fi
 }
+## End Common Functions
 
 
 brew_install_or_upgrade() {
@@ -64,18 +77,7 @@ brew_launchctl_restart() {
   fi
   launchctl load ~/Library/LaunchAgents/$PLIST >/dev/null
 }
-
-
-# Ask for the administrator password upfront
-#sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until `.osx` has finished
-#while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-
-if [ ! -f "$HOME/.zshrc" ]; then
-  touch "$HOME/.zshrc"
-fi
+## END Homebrew Functions (credit: thoughtbot/laptop)
 
 
 if ! command -v brew >/dev/null; then
@@ -91,7 +93,7 @@ fi
 
 fancy_echo "Updating Homebrew formulas ..."
 brew update
-
+## END Homebrew
 
 
 if [ $SHELL != "/usr/local/bin/zsh" ]; then
@@ -102,19 +104,15 @@ if [ $SHELL != "/usr/local/bin/zsh" ]; then
     echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 fi
 
-# Not needed, as ohmyzsh install changes shell
-#fancy_echo "Changing shell to zsh ..."
-#  chsh -s /usr/local/bin/zsh
-
-
-
-fancy_echo "Install oh-my-zsh"
-  curl -L http://install.ohmyz.sh | sh
-
-
 if [[ -f /etc/zshenv ]]; then
   fancy_echo "Fixing OSX zsh environment bug ..."
     sudo mv /etc/{zshenv,zshrc}
 fi
+## End Zsh Install
 
-fancy_echo "Open new terminal before proceding with setup scripts"
+
+fancy_echo "Install oh-my-zsh"
+  curl -L http://install.ohmyz.sh | sh
+## End oh-my-zsh Install
+
+## INSERT ADDED ZSH THEMES,ALIASES,CONFIGS
