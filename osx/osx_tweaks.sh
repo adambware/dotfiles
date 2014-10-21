@@ -25,8 +25,8 @@ set -e
 # General UI/UX                                                               #
 ###############################################################################
 
-fancy_echo "Increase window resize speed for Cocoa applications"
-	defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+#fancy_echo "Increase window resize speed for Cocoa applications"
+#	defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 fancy_echo "Expand save panel by default"
 	defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -45,14 +45,14 @@ fancy_echo "Automatically quit printer app once the print jobs complete"
 fancy_echo "Disable the “Are you sure you want to open this application?” dialog"
 	defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-fancy_echo "Remove duplicates in the “Open With” menu (also see lscleanup alias)"
-	/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+#fancy_echo "Remove duplicates in the “Open With” menu (also see lscleanup alias)"
+#	/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
 fancy_echo "Disable Resume system-wide"
 	defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
-fancy_echo "Set Help Viewer windows to non-floating mode"
-	defaults write com.apple.helpviewer DevMode -bool true
+#fancy_echo "Set Help Viewer windows to non-floating mode"
+#	defaults write com.apple.helpviewer DevMode -bool true
 
 fancy_echo "Check for software updates daily, not just once per week"
 	defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
@@ -235,8 +235,8 @@ fancy_echo "“General”, “Open with”, and “Sharing & Permissions”"
 #fancy_echo "Minimize windows into their application’s icon"
 #	defaults write com.apple.dock minimize-to-application -bool true
 
-fancy_echo "Enable spring loading for all Dock items"
-	defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
+#fancy_echo "Enable spring loading for all Dock items"
+#	defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 
 fancy_echo "Show indicator lights for open applications in the Dock"
 	defaults write com.apple.dock show-process-indicators -bool true
@@ -256,10 +256,10 @@ fancy_echo "Don’t automatically rearrange Spaces based on most recent use"
 fancy_echo "Enable the 2D Dock"
 	defaults write com.apple.dock no-glass -bool true
 
-fancy_echo "Adambware - Dock Position on Right"
+fancy_echo "Dock Position on Right"
 	defaults write com.apple.dock orientation -string "right"
 
-fancy_echo "Adambware - Disable dock magnification"
+fancy_echo "Disable dock magnification"
 	defaults write com.apple.dock magnification -bool false
 
 
@@ -303,8 +303,8 @@ fancy_echo "Disable inline attachments (just show the icons)"
 # Spotlight                                                                   #
 ###############################################################################
 
-fancy_echo "Hide Spotlight tray-icon (and subsequent helper)"
-	sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
+#fancy_echo "Hide Spotlight tray-icon (and subsequent helper)"
+#	sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
 fancy_echo "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before."
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
