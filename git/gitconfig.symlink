@@ -1,0 +1,14 @@
+[user]
+	name = Adam Boulware
+	email = adamboulware@gmail.com
+[core]
+	excludesfile = ~/.gitignore_global
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+	ui = true
+[diff]
+	external = ~/bin/git-diff-cmd.sh
+[merge]
+	tool = opendiff
