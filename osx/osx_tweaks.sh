@@ -306,9 +306,9 @@ fancy_echo "Disable inline attachments (just show the icons)"
 #fancy_echo "Hide Spotlight tray-icon (and subsequent helper)"
 #	sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
 
-fancy_echo "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before."
+#fancy_echo "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before."
 # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
+#	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
 
 ###############################################################################
