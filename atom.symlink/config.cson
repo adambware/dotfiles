@@ -1,0 +1,30 @@
+'global':
+  'exception-reporting':
+    'userId': '883c2509-542d-ad78-1d07-b5f6de2b46a7'
+  'release-notes':
+    'viewedVersion': '0.95.0'
+  'welcome':
+    'showOnStartup': false
+  'metrics':
+    'userId': 'e844e1d504c911e957f7b8aeecbf21dd11db951e'
+  'core':
+    'themes': [
+      'atom-mac-theme'
+      'solarized-dark-syntax'
+    ]
+    'ignoredNames': [
+      '.git'
+      '.svn'
+      '.DS_Store'
+    ]
+    'disabledPackages': [
+      'autocomplete-plus'
+    ]
+  'tree-view':
+    'showOnRightSide': true
+    'hideVcsIgnoredFiles': true
+  'editor':
+    'showIndentGuide': true
+    'fontFamily': 'Inconsolata'
+    'invisibles': {}
+  'autoclose-html': {}
