@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
+#cd "$(dirname "$0")/.."
+#DOTFILES_ROOT=$(pwd)
 
 source $DOTFILES_ROOT/script/common.sh
 
@@ -17,16 +17,14 @@ set -e
 ### end common-components/exit-trap
 
 
-
 # START ~/.osx — https://mths.be/osx
-
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
-#fancy_echo "Increase window resize speed for Cocoa applications"
-#	defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+fancy_echo "Increase window resize speed for Cocoa applications"
+	defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 fancy_echo "Expand save panel by default"
 	defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -51,9 +49,6 @@ fancy_echo "Disable the “Are you sure you want to open this application?” di
 fancy_echo "Disable Resume system-wide"
 	defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
-#fancy_echo "Set Help Viewer windows to non-floating mode"
-#	defaults write com.apple.helpviewer DevMode -bool true
-
 fancy_echo "Check for software updates daily, not just once per week"
 	defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
@@ -62,8 +57,8 @@ fancy_echo "Check for software updates daily, not just once per week"
 # SSD-specific tweaks                                                         #
 ###############################################################################
 
-#fancy_echo "Disable local Time Machine snapshots"
-#	sudo tmutil disablelocal
+fancy_echo "Disable local Time Machine backups"
+	hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 fancy_echo "Disable hibernation (speeds up entering sleep mode)"
 	sudo pmset -a hibernatemode 0
@@ -144,9 +139,6 @@ fancy_echo "Finder: show all filename extensions"
 fancy_echo "Finder: show status bar"
 	defaults write com.apple.finder ShowStatusBar -bool true
 
-#fancy_echo "Finder: show path bar"
-#	defaults write com.apple.finder ShowPathbar -bool true
-
 fancy_echo "Finder: allow text selection in Quick Look"
 	defaults write com.apple.finder QLEnableTextSelection -bool true
 
@@ -168,38 +160,10 @@ fancy_echo "Remove the spring loading delay for directories"
 fancy_echo "Avoid creating .DS_Store files on network volumes"
 	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-#fancy_echo "Disable disk image verification"
-#	defaults write com.apple.frameworks.diskimages skip-verify -bool true
-#	defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-#	defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-
 fancy_echo "Automatically open a new Finder window when a volume is mounted"
 	defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
 	defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
 	defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
-
-#fancy_echo "Show item info near icons on the desktop and in other icon views"
-#	/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-
-#fancy_echo "Show item info to the right of the icons on the desktop"
-#	/usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
-
-#fancy_echo "Enable snap-to-grid for icons on the desktop and in other icon views"
-#	/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
-#fancy_echo "Increase grid spacing for icons on the desktop and in other icon views"
-#	/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-
-#fancy_echo "Increase the size of icons on the desktop and in other icon views"
-#	/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-#	/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
 fancy_echo "Use list view in all Finder windows by default"
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -225,12 +189,6 @@ fancy_echo "“General”, “Open with”, and “Sharing & Permissions”"
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
-
-#fancy_echo "Set the icon size of Dock items to 36 pixels"
-#	defaults write com.apple.dock tilesize -int 36
-
-#fancy_echo "Change minimize/maximize window effect"
-#	defaults write com.apple.dock mineffect -string "scale"
 
 #fancy_echo "Minimize windows into their application’s icon"
 #	defaults write com.apple.dock minimize-to-application -bool true
@@ -300,18 +258,6 @@ fancy_echo "Disable inline attachments (just show the icons)"
 
 
 ###############################################################################
-# Spotlight                                                                   #
-###############################################################################
-
-#fancy_echo "Hide Spotlight tray-icon (and subsequent helper)"
-#	sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-
-#fancy_echo "Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before."
-# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-#	sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
-
-
-###############################################################################
 # Terminal & iTerm 2                                                          #
 ###############################################################################
 
@@ -334,7 +280,7 @@ fancy_echo "Only use UTF-8 in Terminal.app"
 fancy_echo "Don’t display the annoying prompt when quitting iTerm"
 	defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
-fancy_echo "Adambware - Terminal Defaults"
+fancy_echo "Set Terminal Defaults"
 	defaults write com.apple.Terminal "Default Window Settings" -string "Novel"
 	defaults write com.apple.Terminal "Startup Window Settings" -string "Novel"
 
@@ -345,9 +291,6 @@ fancy_echo "Adambware - Terminal Defaults"
 
 fancy_echo "Prevent Time Machine from prompting to use new hard drives as backup volume"
 	defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
-
-fancy_echo "Disable local Time Machine backups"
-	hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 
 ###############################################################################
@@ -368,12 +311,6 @@ fancy_echo "Sort Activity Monitor results by CPU usage"
 ###############################################################################
 # Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
 ###############################################################################
-
-#fancy_echo "Enable the debug menu in Address Book"
-#	defaults write com.apple.addressbook ABShowDebugMenu -bool true
-
-#fancy_echo "Enable the debug menu in iCal (pre-10.8)"
-#	defaults write com.apple.iCal IncludeDebugMenu -bool true
 
 fancy_echo "Use plain text mode for new TextEdit documents"
 	defaults write com.apple.TextEdit RichText -int 0
