@@ -1,11 +1,11 @@
 #.gitconfig
 #.gitignore_global
 .vimrc
-.zshrc
-  REVIEW /zsh
-    completion.zsh
-    config.zsh
-    fpath.zsh
+#.zshrc
+  #REVIEW /zsh
+    #completion.zsh
+    #config.zsh
+    #fpath.zsh
 
 .atom/packages/*
   Can I use apm command after homebrew atom install?
