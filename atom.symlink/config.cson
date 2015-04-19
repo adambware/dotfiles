@@ -9,7 +9,7 @@
     'userId': 'e844e1d504c911e957f7b8aeecbf21dd11db951e'
   'core':
     'themes': [
-      'atom-mac-theme'
+      'one-dark'
       'solarized-dark-syntax'
     ]
     'ignoredNames': [

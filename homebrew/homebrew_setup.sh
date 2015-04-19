@@ -56,7 +56,7 @@ if [[ ! -d "$HOME/.rbenv/plugins/ruby-build" ]]; then
     brew_install_or_upgrade 'ruby-build'
 fi
 
-ruby_version="2.1.3"
+ruby_version="2.2.2"
 
 fancy_echo "Installing Ruby $ruby_version ..."
   rbenv install -s "$ruby_version"
@@ -113,6 +113,7 @@ apps=(
   backblaze
   bartender
   cakebrew
+  coda
   codekit
   cyberduck
   diskmaker-x
@@ -147,7 +148,6 @@ apps=(
   quicklook-csv
   betterzipql
 )
-
 
 # Install apps to /Applications
 # Default is: /Users/$user/Applications
