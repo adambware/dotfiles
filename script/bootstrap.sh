@@ -12,6 +12,9 @@ set -e
 if [[ $USER=="adamboulware" ]]; then
   source $DOTFILES_ROOT/zsh/zsh_setup.sh
   source $DOTFILES_ROOT/homebrew/homebrew_setup.sh
+
+  install_dotfiles
+
   source $DOTFILES_ROOT/osx/osx_tweaks.sh
   source $DOTFILES_ROOT/script/private.sh
 
