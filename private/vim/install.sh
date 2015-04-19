@@ -1,12 +1,16 @@
 #!/bin/sh
 
-if [[ -d "~/.vim/" ]]
-then
-  if [[ ! -d "~/shtest/" ]]
-  then
-    mkdir ~/shtest
-  fi
-  cp -R ./autoload ~/shtest/.vim/autoload
-  cp -R ./bitmaps ~/shtest/.vim/bitmaps
-  cp -R ./colors ~/shtest/.vim/colors
+if [ ! -d "$HOME/.vim/" ]; then
+  mkdir $HOME/.vim
 fi
+if [ ! -d "$HOME/.vim/backups" ]; then
+  mkdir $HOME/.vim/backups
+fi
+if [ ! -d "$HOME/.vim/swaps" ]; then
+  mkdir $HOME/.vim/swaps
+fi
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+/bin/cp -Rf $DIR/autoload/ $HOME/.vim/autoload
+/bin/cp -Rf $DIR/bitmaps/ $HOME/.vim/bitmaps
+/bin/cp -Rf $DIR/colors/ $HOME/.vim/colors

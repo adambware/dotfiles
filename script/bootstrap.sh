@@ -13,6 +13,7 @@ if [[ $USER=="adamboulware" ]]; then
   source $DOTFILES_ROOT/zsh/zsh_setup.sh
   source $DOTFILES_ROOT/homebrew/homebrew_setup.sh
   source $DOTFILES_ROOT/osx/osx_tweaks.sh
+  source $DOTFILES_ROOT/script/private.sh
 
   link_file "$DOTFILES_ROOT/system/aliases.zsh" "$HOME/.oh-my-zsh/custom/aliases.zsh"
   link_file "$DOTFILES_ROOT/system/env.zsh" "$HOME/.oh-my-zsh/custom/env.zsh"
