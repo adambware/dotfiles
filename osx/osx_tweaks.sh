@@ -63,15 +63,15 @@ fancy_echo "Disable local Time Machine backups"
 fancy_echo "Disable hibernation (speeds up entering sleep mode)"
 	sudo pmset -a hibernatemode 0
 
-if [ -f "/Private/var/vm/sleepimage" ]; then
+if [ -f "/private/var/vm/sleepimage" ]; then
 	fancy_echo "Remove the sleep image file to save disk space"
-		sudo rm /Private/var/vm/sleepimage
+		sudo rm /private/var/vm/sleepimage
+else
+  fancy_echo "Create a zero-byte file instead…"
+	  sudo touch /private/var/vm/sleepimage
+  fancy_echo "…and make sure it can’t be rewritten"
+  	sudo chflags uchg /private/var/vm/sleepimage
 fi
-fancy_echo "Create a zero-byte file instead…"
-	sudo touch /Private/var/vm/sleepimage
-fancy_echo "…and make sure it can’t be rewritten"
-	sudo chflags uchg /Private/var/vm/sleepimage
-
 #fancy_echo "Disable the sudden motion sensor as it’s not useful for SSDs"
 #	sudo pmset -a sms 0
 
