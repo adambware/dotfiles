@@ -154,8 +154,8 @@ fancy_echo "Disable the warning when changing a file extension"
 fancy_echo "Enable spring loading for directories"
 	defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
-fancy_echo "Remove the spring loading delay for directories"
-	defaults write NSGlobalDomain com.apple.springing.delay -float 0
+#fancy_echo "Remove the spring loading delay for directories"
+#	defaults write NSGlobalDomain com.apple.springing.delay -float 0
 
 fancy_echo "Avoid creating .DS_Store files on network volumes"
 	defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
