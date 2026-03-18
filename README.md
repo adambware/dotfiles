@@ -1,11 +1,11 @@
-# Dotfiles
+# adambware does dotfiles
 
 macOS development environment setup. No frameworks, no dependencies beyond Homebrew — just shell scripts and config files.
 
 ## Quick Start
 
 ```Shell
-git clone https://github.com/adambware/dotfiles-playbook.git ~/dotfiles
+git clone https://github.com/adambware/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./setup
 ```
@@ -56,7 +56,7 @@ Supported private files:
 * **Add/remove packages**: Edit `config/Brewfile`
 * **Change macOS settings**: Edit `config/macos.sh`
 * **Update language versions**: Edit the variables at the top of `config/languages.sh`
-* **Shell config (aliases, env, theme, plugins)**: Managed in [omz-custom](https://github.com/adambware/omz-custom) (cloned automatically by `./setup shell`)
+* **Shell config (aliases, env, theme, plugins)**: Managed in [omz](https://github.com/adambware/omz) (cloned automatically by `./setup shell`)
 
 ## License
 

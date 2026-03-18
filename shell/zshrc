@@ -2,7 +2,7 @@
 # ~/.zshrc
 #
 # All config (aliases, env, completion, theme, plugins) lives in
-# ~/.oh-my-zsh/custom/ via https://github.com/adambware/omz-custom
+# ~/.oh-my-zsh/custom/ via https://github.com/adambware/omz
 # Oh My Zsh auto-sources all *.zsh files in that directory.
 #
 

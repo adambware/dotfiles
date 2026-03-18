@@ -54,7 +54,7 @@ cmd_shell() {
   else
     info "Cloning Oh My Zsh custom directory..."
     rm -rf "$custom_dir"
-    git clone https://github.com/adambware/omz-custom.git "$custom_dir"
+    git clone https://github.com/adambware/omz.git "$custom_dir"
   fi
 }
 
