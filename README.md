@@ -1,43 +1,63 @@
-# adambware does dotfiles
-## dotfiles
-My dotfiles are how I personalize my system. 
+# Dotfiles
 
-This is very much a work in progress and is currently only focused on OS X.
+macOS development environment setup. No frameworks, no dependencies beyond Homebrew — just shell scripts and config files.
 
-## install
+## Quick Start
 
-Run this:
-
-```sh
-git clone https://github.com/adambware/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-script/bootstrap.sh
+```Shell
+git clone https://github.com/adambware/dotfiles-playbook.git ~/dotfiles
+cd ~/dotfiles
+./setup
 ```
 
-This will install and set up zsh, homebrew, ruby, node, python, CLI tools, numerous apps, and even tweaks quite a few OS X settings.
+## Selective Setup
 
-Certain files will be symlinked from .dotfiles into your home directory. Others I found simpler to copy to their respective locations... For now!
+```Shell
+./setup homebrew     # Install Homebrew and packages
+./setup shell        # Set up ZSH, Oh My Zsh, and dotfiles
+./setup git          # Set up git config and global gitignore
+./setup macos        # Apply macOS system preferences
+./setup languages    # Install Python, Ruby, Node via asdf
+./setup private      # Symlink private configs
+```
 
-## topical
+Combine commands: `./setup homebrew shell git`
 
-Similar to [holman does dotfiles](https://github.com/holman/dotfiles) everything is built around a topic area. Add a directory for any new area in your forked dotfiles to organize files within each topic. Anything with an extension of `.symlink` will get symlinked without extension into `$HOME` when you run `script/bootstrap.sh`.
+## Structure
 
-## what is happening
+```text
+setup                   # Main runner script
+config/
+  Brewfile              # Homebrew packages and casks
+  macos.sh              # macOS system preferences (defaults write)
+  languages.sh          # Python, Ruby, Node setup via asdf
+shell/
+  zshrc                 # Minimal ~/.zshrc (bootstraps Oh My Zsh)
+git/
+  gitconfig             # Git config (symlinked to ~/.gitconfig)
+  gitignore_global      # Global gitignore
+private/                # .gitignored — your personal configs
+private.example/        # Templates for private/ setup
+```
 
-Everything you want in your environment! I have a lot of stuff revolving around web development and making OS X even friendlier for power users. Check everything out in the file browser and see what might work for you. `homebrew/homebrew.sh` does a lot of work installing various software. That may be a good place to start!
-[Fork it](https://github.com/adambware/dotfiles/fork), remove what you don't need, and build what you do need.
+## Private Configs
 
-## components
+The `private/` directory is gitignored for secrets and personal settings. See `private.example/` for templates.
 
-Despite all of the great inspirations I've found for my dotfiles, I'm still tidying up the organization. The topical organization makes most everything self explanatory if you start at `script\bootstrap.sh` and follow the trail. I'll write more here when it's in a better place!
+Supported private files:
 
-## bugs
+* `private/gitconfig.local` — Git name, email, signing key (included via `[include]` in gitconfig)
+* `private/env.local.zsh` — Private env vars, tokens, aliases (auto-sourced via Oh My Zsh custom/)
+* `private/Brewfile.private` — Extra Homebrew packages for work tools
+* `private/ssh_config` — SSH config (symlinked to `~/.ssh/config`)
 
-My goal is for this to work for everyone; meaning you can clone it, install, and it will work for an OS X machine (currently). That said, I've only used this on *my* MacBook, so there's a good chance something might break on yours.
+## Customization
 
-If you're new to this and run into any roadblocks, please [open an issue](https://github.com/adambware/dotfiles/issues) on this repository and I'd love to work through it!
+* **Add/remove packages**: Edit `config/Brewfile`
+* **Change macOS settings**: Edit `config/macos.sh`
+* **Update language versions**: Edit the variables at the top of `config/languages.sh`
+* **Shell config (aliases, env, theme, plugins)**: Managed in [omz-custom](https://github.com/adambware/omz-custom) (cloned automatically by `./setup shell`)
 
-## thanks
-I took quite a few ideas from [Zach Holman](https://github.com/holman)'s clever [dotfiles](https://github.com/holman/dotfiles). 
-Also found some great work over at [thoughtbot](https://github.com/thoughtbot/) from their [laptop](https://github.com/thoughtbot/laptop) setup script. 
-Most OS X tweaks came from the amazing [.osx](https://github.com/mathiasbynens/dotfiles/blob/master/.osx) created by [Mathias Bynens](https://github.com/mathiasbynens).
+## License
+
+MIT

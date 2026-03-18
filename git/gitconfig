@@ -1,0 +1,16 @@
+[core]
+	excludesfile = ~/.gitignore_global
+
+[pull]
+	rebase = true
+
+[init]
+	defaultBranch = main
+
+[push]
+	autoSetupRemote = true
+
+# Private overrides (name, email, signing key, etc.)
+# Create ~/.gitconfig.local — see private.example/gitconfig.local.example
+[include]
+	path = ~/.gitconfig.local

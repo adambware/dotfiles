@@ -1,0 +1,57 @@
+# Taps
+#tap "homebrew/cask-fonts"
+
+# Shell utilities
+brew "jq"
+brew "htop"
+brew "tmux"
+brew "ripgrep"
+
+# Development tools
+brew "git"
+brew "git-lfs"
+brew "gh"
+
+# Cloud and infrastructure
+brew "kubectl"
+
+# Security tools
+brew "gnupg"
+brew "openssh"
+
+# Utilities
+#cask "alfred"
+cask "bartender"
+
+# Browsers
+#cask "firefox"
+#cask "google-chrome"
+cask "brave-browser"
+
+# Development
+#cask "visual-studio-code"
+#cask "github"
+cask "docker"
+#cask "postman"
+cask "tableplus"
+cask "figma"
+
+# Cloud tools
+cask "google-cloud-sdk"
+
+# Communication & Productivity
+cask "zoom"
+cask "discord"
+
+# Media
+#cask "spotify"
+cask "vlc"
+
+# QuickLook plugins
+#cask "qlmarkdown"
+#cask "quicklook-json"
+
+# Fonts
+cask "font-fira-code"
+cask "font-jetbrains-mono"
+cask "font-cascadia-code"

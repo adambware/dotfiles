@@ -1,0 +1,12 @@
+# Copy to private/gitconfig.local and fill in your details.
+# This gets included by git/gitconfig via [include].
+
+[user]
+	name = Your Name
+	email = your.email@example.com
+
+[github]
+	user = yourusername
+
+[core]
+	editor = code --wait

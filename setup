@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DOTFILES="$(cd "$(dirname "$0")" && pwd)"
+
+# Colors
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+info() { echo -e "${GREEN}==> $1${NC}"; }
+err()  { echo -e "${RED}==> $1${NC}"; exit 1; }
+
+link_file() {
+  local src="$1" dst="$2"
+  mkdir -p "$(dirname "$dst")"
+  ln -sf "$src" "$dst"
+  echo "  linked $dst -> $src"
+}
+
+# --- Commands ---
+
+cmd_homebrew() {
+  info "Installing Homebrew (if needed)..."
+  if ! command -v brew &>/dev/null; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ "$(uname -m)" == "arm64" ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
+  fi
+  info "Installing packages from Brewfile..."
+  brew bundle --file="$DOTFILES/config/Brewfile"
+  if [[ -f "$DOTFILES/private/Brewfile.private" ]]; then
+    info "Installing private packages..."
+    brew bundle --file="$DOTFILES/private/Brewfile.private"
+  fi
+}
+
+cmd_shell() {
+  info "Setting up shell config..."
+  # Install Oh My Zsh if needed
+  if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    info "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
+
+  link_file "$DOTFILES/shell/zshrc" "$HOME/.zshrc"
+
+  # Oh My Zsh custom directory (themes, plugins, aliases, env, etc.)
+  local custom_dir="$HOME/.oh-my-zsh/custom"
+  if [[ -d "$custom_dir/.git" ]]; then
+    info "Updating Oh My Zsh custom directory..."
+    git -C "$custom_dir" pull
+  else
+    info "Cloning Oh My Zsh custom directory..."
+    rm -rf "$custom_dir"
+    git clone https://github.com/adambware/omz-custom.git "$custom_dir"
+  fi
+}
+
+cmd_git() {
+  info "Setting up git config..."
+  link_file "$DOTFILES/git/gitconfig"        "$HOME/.gitconfig"
+  link_file "$DOTFILES/git/gitignore_global" "$HOME/.gitignore_global"
+}
+
+cmd_macos() {
+  info "Applying macOS preferences..."
+  source "$DOTFILES/config/macos.sh"
+}
+
+cmd_languages() {
+  info "Setting up language runtimes..."
+  source "$DOTFILES/config/languages.sh"
+}
+
+cmd_private() {
+  if [[ ! -d "$DOTFILES/private" ]]; then
+    info "No private/ directory found, skipping. See private.example/ for templates."
+    return
+  fi
+  info "Setting up private configs..."
+  # Symlink private gitconfig.local if it exists
+  [[ -f "$DOTFILES/private/gitconfig.local" ]] && \
+    link_file "$DOTFILES/private/gitconfig.local" "$HOME/.gitconfig.local"
+  # Symlink private env into Oh My Zsh custom dir (auto-sourced)
+  [[ -f "$DOTFILES/private/env.local.zsh" ]] && \
+    link_file "$DOTFILES/private/env.local.zsh" "$HOME/.oh-my-zsh/custom/env.local.zsh"
+  # Symlink SSH config if it exists
+  if [[ -f "$DOTFILES/private/ssh_config" ]]; then
+    mkdir -p "$HOME/.ssh"
+    link_file "$DOTFILES/private/ssh_config" "$HOME/.ssh/config"
+  fi
+}
+
+# --- Runner ---
+
+commands=(homebrew shell git macos languages private)
+
+show_help() {
+  echo "Usage: ./setup [command...]"
+  echo ""
+  echo "Commands:"
+  echo "  homebrew    Install Homebrew and packages from Brewfile"
+  echo "  shell       Set up ZSH, Oh My Zsh, and shell config"
+  echo "  git         Set up git config and global gitignore"
+  echo "  macos       Apply macOS system preferences"
+  echo "  languages   Install Python, Ruby, Node via asdf"
+  echo "  private     Symlink private configs (gitconfig.local, SSH, env)"
+  echo ""
+  echo "Run with no arguments to execute all commands."
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  show_help
+  exit 0
+fi
+
+if [[ $# -eq 0 ]]; then
+  for cmd in "${commands[@]}"; do "cmd_$cmd"; done
+else
+  for cmd in "$@"; do
+    if declare -f "cmd_$cmd" &>/dev/null; then
+      "cmd_$cmd"
+    else
+      err "Unknown command: $cmd. Run ./setup --help for usage."
+    fi
+  done
+fi
+
+info "Done!"

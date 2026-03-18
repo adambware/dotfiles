@@ -1,0 +1,8 @@
+.DS_Store
+._*
+*.swp
+*.swo
+*~
+
+# Private configs (secrets, SSH keys, personal git config, etc.)
+private/

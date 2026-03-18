@@ -1,0 +1,10 @@
+# Copy to private/Brewfile.private and customize.
+# These are installed in addition to the main Brewfile.
+
+# Example work-specific tools
+# brew "awscli"
+# brew "terraform"
+# cask "slack"
+# cask "1password"
+# cask "notion"
+# cask "jetbrains-toolbox"
