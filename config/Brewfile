@@ -1,7 +1,5 @@
-# Taps
-#tap "homebrew/cask-fonts"
-
 # Shell utilities
+brew "bash"
 brew "jq"
 brew "htop"
 brew "tmux"
@@ -20,19 +18,18 @@ brew "gnupg"
 brew "openssh"
 
 # Utilities
-#cask "alfred"
+cask "alfred"
 cask "bartender"
 
 # Browsers
-#cask "firefox"
-#cask "google-chrome"
+cask "firefox"
+cask "google-chrome"
 cask "brave-browser"
 
 # Development
-#cask "visual-studio-code"
-#cask "github"
+cask "visual-studio-code"
+cask "github"
 cask "docker"
-#cask "postman"
 cask "tableplus"
 cask "figma"
 
@@ -44,7 +41,7 @@ cask "zoom"
 cask "discord"
 
 # Media
-#cask "spotify"
+cask "spotify"
 cask "vlc"
 
 # QuickLook plugins
